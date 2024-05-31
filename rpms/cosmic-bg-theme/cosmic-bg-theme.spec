@@ -33,6 +33,8 @@ BuildRequires:  lld
 BuildRequires:  cargo
 BuildRequires:  make
 
+BuildRequires:  systemd-rpm-macros
+
 Requires:       cosmic-bg
 
 %global _description %{expand:
@@ -68,8 +70,9 @@ sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
-make install BIN_DIR=%{buildroot}/%{_bindir} SERVICE_DIR=%{_unitdir}
-make install-service BIN_DIR=%{buildroot}/%{_bindir} SERVICE_DIR=%{_unitdir}
+install -Dm0755 target/release/cosmic-bg-theme %{buildroot}/%{_bindir}/cosmic-bg-theme
+sed -i "s|ExecStart=.*|ExecStart=%{_bindir}/cosmic-bg-theme|g" cosmic-bg-theme.service
+install -Dm0644 cosmic-bg-theme.service %{buildroot}/%{_unitdir}/cosmic-bg-theme.service
 
 %if %{with check}
 %check
