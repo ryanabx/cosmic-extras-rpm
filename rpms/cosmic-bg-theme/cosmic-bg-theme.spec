@@ -72,7 +72,7 @@ export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 install -Dm0755 target/release/cosmic-bg-theme %{buildroot}/%{_bindir}/cosmic-bg-theme
 sed -i "s|ExecStart=.*|ExecStart=%{_bindir}/cosmic-bg-theme|g" cosmic-bg-theme.service
-install -Dm0644 cosmic-bg-theme.service %{buildroot}/%{_unitdir}/cosmic-bg-theme.service
+install -Dm0644 cosmic-bg-theme.service %{buildroot}/%{_userunitdir}/cosmic-bg-theme.service
 
 %if %{with check}
 %check
@@ -88,7 +88,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %license cargo-vendor.txt
 %doc README.md
 %{_bindir}/cosmic-bg-theme
-%{_unitdir}/cosmic-bg-theme.service
+%{_userunitdir}/cosmic-bg-theme.service
 
 %changelog
 %autochangelog
