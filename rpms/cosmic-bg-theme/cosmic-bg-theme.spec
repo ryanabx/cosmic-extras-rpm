@@ -41,7 +41,7 @@ Requires:       cosmic-bg
 %description %{_description}
 
 %prep
-%autosetup -n cosmic-settings-%{commit} -p1 -a1
+%autosetup -n cosmic_bg_theme-%{commit} -p1 -a1
 %cargo_prep -N
 # Check if .cargo/config.toml exists
 if [ -f .cargo/config.toml ]; then
